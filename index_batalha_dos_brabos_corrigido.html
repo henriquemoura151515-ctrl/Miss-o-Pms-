@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10120d">
+<title>BATALHA DOS BRABOS | Preparatório PMPE</title>
+<meta name="description" content="Plataforma de estudos, questões e simulados para preparação PMPE.">
+
+<style>
+:root {
+  --fundo:#0b0d0a;
+  --painel:#151912;
+  --painel2:#1d2318;
+  --verde:#9baa60;
+  --verde2:#c0ce83;
+  --texto:#f4f5ed;
+  --cinza:#b7bbaa;
+  --borda:#3c4630;
+  --vermelho:#c85f5f;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--fundo);
+  color:var(--texto);
+  font-family:Arial,Helvetica,sans-serif;
+  line-height:1.5;
+}
+button,input,select,textarea { font:inherit; }
+button { cursor:pointer; }
+.topo {
+  padding:20px 16px;
+  background:linear-gradient(135deg,#202719,#090b08);
+  border-bottom:2px solid var(--verde);
+}
+.marca {
+  font-size:clamp(23px,6vw,34px);
+  font-weight:900;
+  letter-spacing:1px;
+}
+.marca span { color:var(--verde2); }
+.subtitulo { color:var(--cinza);font-size:13px; }
+.status {
+  display:inline-block;
+  margin-top:10px;
+  padding:5px 9px;
+  background:#29321f;
+  color:var(--verde2);
+  border-radius:20px;
+  font-size:12px;
+}
+.layout { max-width:1100px;margin:auto;padding:14px; }
+.menu {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;
+  margin-bottom:16px;
+}
+.menu button,.botao {
+  border:1px solid var(--borda);
+  border-radius:9px;
+  background:var(--painel2);
+  color:var(--texto);
+  padding:11px 7px;
+}
+.menu button.ativo,.botao-principal {
+  background:var(--verde);
+  color:#10120d;
+  border-color:var(--verde);
+  font-weight:bold;
+}
+.pagina { display:none; }
+.pagina.ativa { display:block; }
+.card {
+  background:var(--painel);
+  border:1px solid var(--borda);
+  border-radius:13px;
+  padding:15px;
+  margin-bottom:13px;
+}
+h1,h2,h3 { line-height:1.25; }
+h1 { font-size:24px; }
+h2 { font-size:20px;margin-top:0; }
+h3 { font-size:16px; }
+p { overflow-wrap:anywhere; }
+.muted { color:var(--cinza);font-size:13px; }
+.grade {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.numero {
+  font-size:27px;
+  color:var(--verde2);
+  font-weight:bold;
+}
+label { display:block;margin:10px 0 5px;font-size:14px; }
+input,select,textarea {
+  width:100%;
+  padding:12px;
+  border:1px solid var(--borda);
+  border-radius:8px;
+  background:#0e110c;
+  color:var(--texto);
+}
+textarea { min-height:85px;resize:vertical; }
+.botao { margin:5px 4px 5px 0; }
+.lista-botoes { display:flex;flex-wrap:wrap;gap:5px; }
+.linha {
+  border-top:1px solid var(--borda);
+  margin-top:14px;
+  padding-top:14px;
+}
+.alternativa {
+  width:100%;
+  text-align:left;
+  margin:5px 0;
+  padding:12px;
+  border:1px solid var(--borda);
+  border-radius:8px;
+  background:#20251b;
+  color:var(--texto);
+}
+.alternativa.certa { border-color:#79b56a;background:#1d3820; }
+.alternativa.errada { border-color:var(--vermelho);background:#3b2020; }
+.comentario {
+  background:#252c1e;
+  border-left:4px solid var(--verde);
+  border-radius:6px;
+  padding:12px;
+  margin-top:10px;
+}
+.barra {
+  height:9px;background:#303629;border-radius:10px;overflow:hidden;
+}
+.barra div { height:100%;background:var(--verde);width:0; }
+.item { padding:12px 0;border-bottom:1px solid var(--borda); }
+.item:last-child { border-bottom:0; }
+.pequeno { font-size:12px;color:var(--cinza); }
+footer {
+  text-align:center;padding:25px 10px;color:var(--cinza);font-size:12px;
+}
+@media(min-width:700px) {
+  .menu { grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .grade { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="marca">BATALHA <span>DOS BRABOS</span></div>
+  <div class="subtitulo">CENTRO DE PREPARAÇÃO • PMPE</div>
+  <div class="status">FOCO • DISCIPLINA • CONSTÂNCIA</div>
+</header>
+
+<div class="layout">
+<nav class="menu" id="menu">
+  <button class="ativo" data-pagina="inicio">Início</button>
+  <button data-pagina="questoes">Questões</button>
+  <button data-pagina="simulados">Simulados</button>
+  <button data-pagina="materias">Matérias</button>
+  <button data-pagina="cronograma">Cronograma</button>
+  <button data-pagina="cronometro">Estudar</button>
+  <button data-pagina="erros">Caderno de erros</button>
+  <button data-pagina="desempenho">Desempenho</button>
+  <button data-pagina="aulas">Aulas e PDFs</button>
+</nav>
+</div>
+<main class="layout">
+
+<section class="pagina ativa" id="inicio">
+  <div class="card">
+    <h1>Missão do dia</h1>
+    <p>Construa sua preparação um dia de cada vez.</p>
+    <p class="muted">Registre seus estudos, resolva questões e revise seus erros.</p>
+  </div>
+  <div class="grade">
+    <div class="card"><div class="muted">Questões respondidas</div><div class="numero" id="painelRespondidas">0</div></div>
+    <div class="card"><div class="muted">Acertos</div><div class="numero" id="painelAcertos">0</div></div>
+    <div class="card"><div class="muted">Tempo estudado</div><div class="numero" id="painelTempo">0 min</div></div>
+  </div>
+  <div class="card">
+    <h2>Progresso geral</h2>
+    <div class="barra"><div id="barraGeral"></div></div>
+    <p id="textoProgresso" class="muted">Responda às questões para acompanhar seu progresso.</p>
+    <button class="botao botao-principal" onclick="irPara('questoes')">Começar a estudar</button>
+  </div>
+</section>
+
+<section class="pagina" id="questoes">
+  <div class="card">
+    <h2>Banco de questões</h2>
+    <p class="muted">Escolha a matéria, responda e leia o comentário.</p>
+    <label for="filtroMateria">Filtrar por matéria</label>
+    <select id="filtroMateria" onchange="renderQuestoes()">
+      <option value="Todas">Todas as matérias</option>
+      <option>Língua Portuguesa</option>
+      <option>História de Pernambuco</option>
+      <option>Raciocínio Lógico</option>
+      <option>Informática</option>
+      <option>Direito Constitucional e Direitos Humanos</option>
+      <option>Legislação Extravagante</option>
+    </select>
+    <div id="resumoQuestoes" class="muted"></div>
+    <div id="listaQuestoes"></div>
+  </div>
+</section>
+
+<section class="pagina" id="simulados">
+  <div class="card">
+    <h2>Central de simulados</h2>
+    <p>Monte um simulado com as questões cadastradas no banco.</p>
+    <label for="simQuantidade">Quantidade de questões</label>
+    <select id="simQuantidade">
+      <option value="5">5 questões — teste rápido</option>
+      <option value="10">10 questões</option>
+      <option value="30">30 questões</option>
+      <option value="60">60 questões</option>
+    </select>
+    <label for="simTempo">Tempo disponível</label>
+    <select id="simTempo">
+      <option value="20">20 minutos</option>
+      <option value="60">60 minutos</option>
+      <option value="120" selected>120 minutos</option>
+    </select>
+    <button class="botao botao-principal" onclick="iniciarSimulado()">Iniciar simulado</button>
+    <div id="areaSimulado" class="linha"></div>
+  </div>
+</section>
+
+<section class="pagina" id="materias">
+  <div class="card">
+    <h2>Sala de matérias</h2>
+    <p class="muted">Selecione uma área para estudar os tópicos introdutórios.</p>
+    <div id="listaMaterias"></div>
+    <div id="conteudoMateria" class="linha">Escolha uma matéria acima.</div>
+  </div>
+</section>
+
+<section class="pagina" id="cronograma">
+  <div class="card">
+    <h2>Meu cronograma</h2>
+    <label for="crData">Data</label>
+    <input type="date" id="crData">
+    <label for="crMateria">Matéria</label>
+    <select id="crMateria">
+      <option>Língua Portuguesa</option>
+      <option>História de Pernambuco</option>
+      <option>Raciocínio Lógico</option>
+      <option>Informática</option>
+      <option>Direito Constitucional e Direitos Humanos</option>
+      <option>Legislação Extravagante</option>
+    </select>
+    <label for="crTarefa">Tarefa de estudo</label>
+    <input id="crTarefa" placeholder="Ex.: estudar interpretação de texto">
+    <label for="crMinutos">Tempo planejado (minutos)</label>
+    <input type="number" id="crMinutos" min="1" value="60">
+    <button class="botao botao-principal" onclick="adicionarCronograma()">Salvar tarefa</button>
+    <div id="listaCronograma" class="linha"></div>
+  </div>
+</section>
+
+<section class="pagina" id="cronometro">
+  <div class="card">
+    <h2>Sessão de estudos</h2>
+    <label for="estMateria">Matéria estudada</label>
+    <select id="estMateria">
+      <option>Língua Portuguesa</option>
+      <option>História de Pernambuco</option>
+      <option>Raciocínio Lógico</option>
+      <option>Informática</option>
+      <option>Direito Constitucional e Direitos Humanos</option>
+      <option>Legislação Extravagante</option>
+    </select>
+    <div class="numero" id="relogio" style="text-align:center;margin:20px">00:00:00</div>
+    <div class="lista-botoes">
+      <button class="botao botao-principal" id="btnIniciar" onclick="iniciarRelogio()">Iniciar</button>
+      <button class="botao" onclick="pausarRelogio()">Pausar</button>
+      <button class="botao" onclick="finalizarRelogio()">Finalizar e salvar</button>
+      <button class="botao" onclick="zerarRelogio()">Zerar</button>
+    </div>
+    <p class="muted">Ao finalizar, o tempo será registrado no seu desempenho neste aparelho.</p>
+  </div>
+</section>
+
+<section class="pagina" id="erros">
+  <div class="card">
+    <h2>Caderno de erros</h2>
+    <p class="muted">Questões respondidas incorretamente aparecem aqui para revisão.</p>
+    <div id="listaErros"></div>
+  </div>
+</section>
+
+<section class="pagina" id="desempenho">
+  <div class="card">
+    <h2>Meu desempenho</h2>
+    <div id="relatorioDesempenho"></div>
+  </div>
+  <div class="card">
+    <h3>Seus dados neste aparelho</h3>
+    <button class="botao" onclick="exportarDados()">Exportar cópia dos dados</button>
+    <label for="importarArquivo">Restaurar uma cópia exportada</label>
+    <input type="file" id="importarArquivo" accept=".json,application/json" onchange="importarDados(event)">
+    <p class="muted">Os dados ficam no armazenamento local do navegador. Limpar os dados do navegador pode apagá-los.</p>
+  </div>
+</section>
+
+<section class="pagina" id="aulas">
+  <div class="card">
+    <h2>Aulas e PDFs</h2>
+    <p>Cadastre links de aulas, apostilas ou materiais de estudo.</p>
+    <label for="materialTitulo">Nome do material</label>
+    <input id="materialTitulo" placeholder="Ex.: Aula de Português">
+    <label for="materialUrl">Link do material</label>
+    <input id="materialUrl" type="url" placeholder="https://...">
+    <label for="materialMateria">Matéria</label>
+    <select id="materialMateria">
+      <option>Língua Portuguesa</option>
+      <option>História de Pernambuco</option>
+      <option>Raciocínio Lógico</option>
+      <option>Informática</option>
+      <option>Direito Constitucional e Direitos Humanos</option>
+      <option>Legislação Extravagante</option>
+    </select>
+    <button class="botao botao-principal" onclick="adicionarMaterial()">Salvar material</button>
+    <div id="listaMateriais" class="linha"></div>
+  </div>
+</section>
+
+</main>
+<footer>BATALHA DOS BRABOS • Preparação e disciplina</footer>
+<script>
+"use strict";
+
+const CHAVE_DADOS = "batalha_brabos_dados_v1";
+
+const MATERIAS = [
+ "Língua Portuguesa",
+ "História de Pernambuco",
+ "Raciocínio Lógico",
+ "Informática",
+ "Direito Constitucional e Direitos Humanos",
+ "Legislação Extravagante"
+];
+
+const CONTEUDOS = {
+ "Língua Portuguesa": [
+  ["Interpretação de texto","Identifique a ideia central, as informações explícitas e implícitas, a finalidade do texto e o sentido das palavras no contexto."],
+  ["Conjunções","Conjunções conectam orações e ideias. Exemplos: mas (oposição), porque (causa ou explicação), embora (concessão)."],
+  ["Concordância","A concordância verbal relaciona o verbo ao sujeito; a nominal relaciona substantivos a artigos, adjetivos e outros termos."]
+ ],
+ "História de Pernambuco": [
+  ["Presença neerlandesa","O domínio neerlandês no Nordeste ocorreu no século XVII. Recife tornou-se um centro importante durante esse período."],
+  ["Insurreição Pernambucana","Movimento de resistência ao domínio neerlandês, com conflitos que culminaram na expulsão dos holandeses em 1654."],
+  ["Revolução Pernambucana de 1817","Movimento republicano e separatista que questionou o governo português e teve forte participação em Pernambuco."]
+ ],
+ "Raciocínio Lógico": [
+  ["Sequências numéricas","Observe a diferença entre termos consecutivos e verifique se existe uma regra de soma, subtração, multiplicação ou alternância."],
+  ["Porcentagem","Para calcular x% de um valor, multiplique o valor por x e divida por 100."],
+  ["Proposições","Uma proposição é uma frase declarativa que pode receber valor lógico verdadeiro ou falso."]
+ ],
+ "Informática": [
+  ["Segurança da informação","Use senhas fortes, autenticação em dois fatores, atualizações e cuidado com anexos e links suspeitos."],
+  ["Phishing","É uma tentativa de fraude que busca induzir a vítima a revelar dados ou realizar ações por meio de mensagens enganosas."],
+  ["Arquivos e cópias de segurança","Backup é uma cópia de dados para recuperação em caso de perda, falha ou incidente."]
+ ],
+ "Direito Constitucional e Direitos Humanos": [
+  ["Constituição Federal","A Constituição de 1988 é a norma fundamental do Estado brasileiro e estabelece direitos, garantias e organização dos poderes."],
+  ["Artigo 5º","Prevê direitos e garantias fundamentais, observadas as regras e exceções previstas no próprio texto constitucional."],
+  ["Segurança pública","O artigo 144 da Constituição define a segurança pública como dever do Estado, direito e responsabilidade de todos."]
+ ],
+ "Legislação Extravagante": [
+  ["Lei de Drogas","A Lei nº 11.343/2006 disciplina políticas sobre drogas e medidas relacionadas à prevenção e à repressão previstas em lei."],
+  ["Estatuto do Desarmamento","A Lei nº 10.826/2003 trata, entre outros pontos, de registro, posse e porte de armas de fogo."],
+  ["Lei de Abuso de Autoridade","A Lei nº 13.869/2019 define crimes de abuso de autoridade nas condições estabelecidas no texto legal."]
+ ]
+};
+
+/* Questões iniciais de demonstração.
+   O banco pode ser ampliado acrescentando objetos neste array. */
+const QUESTOES = [
+ {id:"q1",materia:"Língua Portuguesa",pergunta:"Leia: “Embora estivesse cansado, o candidato continuou estudando.” A palavra “embora” expressa:",opcoes:["Causa","Concessão","Consequência","Finalidade","Conclusão"],correta:1,comentario:"“Embora” é conjunção subordinativa concessiva: apresenta um fato contrário à expectativa."},
+ {id:"q2",materia:"História de Pernambuco",pergunta:"A Insurreição Pernambucana do século XVII relaciona-se principalmente:",opcoes:["À Proclamação da República","À resistência ao domínio neerlandês","À Independência do Brasil","À chegada da família real em 1808","À abolição imediata da escravidão"],correta:1,comentario:"O movimento contribuiu para a expulsão dos neerlandeses, concluída em 1654."},
+ {id:"q3",materia:"Raciocínio Lógico",pergunta:"Na sequência 3, 7, 11, 15..., qual é o décimo termo?",opcoes:["35","37","39","41","43"],correta:2,comentario:"A razão é 4. O décimo termo é 3 + 9 × 4 = 39."},
+ {id:"q4",materia:"Informática",pergunta:"Uma mensagem falsa que imita uma instituição para obter senhas é um exemplo de:",opcoes:["Backup","Phishing","Formatação","Desfragmentação","Compactação"],correta:1,comentario:"Phishing é uma tentativa fraudulenta de obter dados por mensagens, páginas ou comunicações enganosas."},
+ {id:"q5",materia:"Direito Constitucional e Direitos Humanos",pergunta:"Segundo o artigo 144 da Constituição Federal, a segurança pública é:",opcoes:["Dever exclusivo das Forças Armadas","Responsabilidade exclusiva dos municípios","Dever do Estado, direito e responsabilidade de todos","Atividade exclusivamente privada","Dever exclusivo do Judiciário"],correta:2,comentario:"O artigo 144 estabelece que a segurança pública é dever do Estado, direito e responsabilidade de todos."},
+ {id:"q6",materia:"Legislação Extravagante",pergunta:"A Lei nº 11.343/2006 trata principalmente:",opcoes:["Do Código Civil","Do Sistema Nacional de Políticas Públicas sobre Drogas","Do Código de Trânsito","Da organização das Forças Armadas","Dos crimes eleitorais"],correta:1,comentario:"A lei institui o Sisnad e disciplina medidas de prevenção, atenção, reinserção social e repressão nos termos legais."}
+];
+
+function dadosLer() {
+ try {
+  const d = JSON.parse(localStorage.getItem(CHAVE_DADOS) || "{}");
+  return {
+   respostas:d.respostas || {},
+   erros:d.erros || [],
+   sessoes:d.sessoes || [],
+   cronograma:d.cronograma || [],
+   materiais:d.materiais || [],
+   simulados:d.simulados || []
+  };
+ } catch(e) {
+  return {respostas:{},erros:[],sessoes:[],cronograma:[],materiais:[],simulados:[]};
+ }
+}
+function dadosSalvar(d) {
+ localStorage.setItem(CHAVE_DADOS,JSON.stringify(d));
+ atualizarPainel();
+}
+function escapar(s) {
+ return String(s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+ });
+}
+function irPara(id) {
+ document.querySelectorAll(".pagina").forEach(function(p){p.classList.remove("ativa");});
+ document.querySelectorAll("#menu button").forEach(function(b){b.classList.toggle("ativo",b.dataset.pagina===id);});
+ const pagina=document.getElementById(id);
+ if(pagina) pagina.classList.add("ativa");
+ if(id==="questoes") renderQuestoes();
+ if(id==="erros") renderErros();
+ if(id==="desempenho") renderDesempenho();
+ if(id==="cronograma") renderCronograma();
+ if(id==="materias") renderMaterias();
+ if(id==="aulas") renderMateriais();
+}
+document.getElementById("menu").addEventListener("click",function(e){
+ const b=e.target.closest("button[data-pagina]");
+ if(b) irPara(b.dataset.pagina);
+});
+
+function renderQuestoes() {
+ const area=document.getElementById("listaQuestoes");
+ if(!area) return;
+ const d=dadosLer();
+ const filtro=document.getElementById("filtroMateria").value;
+ const lista=QUESTOES.filter(q=>filtro==="Todas"||q.materia===filtro);
+ let acertos=0,respondidas=0;
+ lista.forEach(q=>{
+  if(Object.prototype.hasOwnProperty.call(d.respostas,q.id)){
+   respondidas++;
+   if(d.respostas[q.id]===q.correta) acertos++;
+  }
+ });
+ document.getElementById("resumoQuestoes").textContent=
+  "Respondidas: "+respondidas+"/"+lista.length+" • Acertos: "+acertos+" • Erros: "+(respondidas-acertos);
+ area.innerHTML="";
+ lista.forEach((q,i)=>{
+  const respondeu=Object.prototype.hasOwnProperty.call(d.respostas,q.id);
+  const escolhida=d.respostas[q.id];
+  let html='<div class="item"><h3>'+ (i+1)+'. '+escapar(q.materia)+'</h3><p>'+escapar(q.pergunta)+'</p>';
+  q.opcoes.forEach((op,j)=>{
+   let cls="alternativa";
+   if(respondeu&&j===q.correta) cls+=" certa";
+   else if(respondeu&&j===escolhida) cls+=" errada";
+   html+='<button class="'+cls+'" '+(respondeu?'disabled':'')+' onclick="responderQuestao(\''+q.id+'\','+j+')">'+String.fromCharCode(65+j)+') '+escapar(op)+'</button>';
+  });
+  if(respondeu){
+   html+='<div class="comentario"><strong>'+(escolhida===q.correta?'Resposta correta!':'Resposta incorreta.')+'</strong><p>Gabarito: '+String.fromCharCode(65+q.correta)+') '+escapar(q.opcoes[q.correta])+'</p>'+escapar(q.comentario)+'</div>';
+   html+='<button class="botao" onclick="refazerQuestao(\''+q.id+'\')">Refazer questão</button>';
+  }
+  html+='</div>';
+  area.insertAdjacentHTML("beforeend",html);
+ });
+}
+function responderQuestao(id,indice) {
+ const d=dadosLer(),q=QUESTOES.find(x=>x.id===id);
+ if(!q||Object.prototype.hasOwnProperty.call(d.respostas,id)) return;
+ d.respostas[id]=indice;
+ d.erros=d.erros.filter(e=>e.id!==id);
+ if(indice!==q.correta) {
+  d.erros.push({id:id,materia:q.materia,pergunta:q.pergunta,opcoes:q.opcoes,correta:q.correta,comentario:q.comentario,data:new Date().toISOString()});
+ }
+ dadosSalvar(d);
+ renderQuestoes();
+}
+function refazerQuestao(id) {
+ const d=dadosLer();
+ delete d.respostas[id];
+ d.erros=d.erros.filter(e=>e.id!==id);
+ dadosSalvar(d);
+ renderQuestoes();
+}
+function renderErros() {
+ const area=document.getElementById("listaErros"),d=dadosLer();
+ if(!d.erros.length){area.innerHTML="<p>Nenhuma questão errada registrada. Continue estudando!</p>";return;}
+ area.innerHTML=d.erros.map(e=>
+  '<div class="item"><strong>'+escapar(e.materia)+'</strong><p>'+escapar(e.pergunta)+'</p><p><b>Gabarito:</b> '+String.fromCharCode(65+e.correta)+') '+escapar(e.opcoes[e.correta])+'</p><p>'+escapar(e.comentario)+'</p><button class="botao" onclick="revisarErro(\''+e.id+'\')">Revisar questão</button></div>'
+ ).join("");
+}
+function revisarErro(id) {
+ const q=QUESTOES.find(x=>x.id===id);
+ if(!q) return;
+ document.getElementById("filtroMateria").value=q.materia;
+ irPara("questoes");
+}
+function renderMaterias() {
+ const area=document.getElementById("listaMaterias");
+ area.innerHTML=MATERIAS.map((m,i)=>
+  '<button class="botao" onclick="abrirMateria('+i+')">'+escapar(m)+'</button>'
+ ).join("");
+}
+function abrirMateria(i) {
+ const nome=MATERIAS[i],topicos=CONTEUDOS[nome]||[];
+ document.getElementById("conteudoMateria").innerHTML=
+  '<h3>'+escapar(nome)+'</h3>'+topicos.map(t=>
+   '<div class="item"><strong>'+escapar(t[0])+'</strong><p>'+escapar(t[1])+'</p></div>'
+  ).join("")+
+  '<button class="botao botao-principal" onclick="filtrarMateria('+i+')">Praticar questões desta matéria</button>';
+}
+function filtrarMateria(i) {
+ document.getElementById("filtroMateria").value=MATERIAS[i];
+ irPara("questoes");
+}
+function adicionarCronograma() {
+ const data=document.getElementById("crData").value;
+ const materia=document.getElementById("crMateria").value;
+ const tarefa=document.getElementById("crTarefa").value.trim();
+ const minutos=Number(document.getElementById("crMinutos").value);
+ if(!data||!tarefa||minutos<1){alert("Preencha a data, a tarefa e os minutos.");return;}
+ const d=dadosLer();
+ d.cronograma.push({id:Date.now(),data,materia,tarefa,minutos,feito:false});
+ dadosSalvar(d);
+ document.getElementById("crTarefa").value="";
+ renderCronograma();
+}
+function renderCronograma() {
+ const area=document.getElementById("listaCronograma"),d=dadosLer();
+ if(!d.cronograma.length){area.innerHTML="<p>Nenhuma tarefa cadastrada.</p>";return;}
+ area.innerHTML=d.cronograma.slice().sort((a,b)=>a.data.localeCompare(b.data)).map(t=>
+  '<div class="item"><strong>'+escapar(t.data)+' • '+escapar(t.materia)+'</strong><p>'+escapar(t.tarefa)+' — '+t.minutos+' min</p><label><input style="width:auto" type="checkbox" '+(t.feito?'checked':'')+' onchange="marcarTarefa('+t.id+',this.checked)"> Concluída</label><button class="botao" onclick="apagarTarefa('+t.id+')">Excluir</button></div>'
+ ).join("");
+}
+function marcarTarefa(id,feito) {
+ const d=dadosLer();const t=d.cronograma.find(x=>x.id===id);
+ if(t)t.feito=feito;
+ dadosSalvar(d);renderCronograma();
+}
+function apagarTarefa(id) {
+ const d=dadosLer();d.cronograma=d.cronograma.filter(x=>x.id!==id);
+ dadosSalvar(d);renderCronograma();
+}
+</script>
+<script>
+let relogioSegundos=0;
+let relogioIntervalo=null;
+let simuladoAtual=null;
+let simuladoIntervalo=null;
+let simuladoRestante=0;
+
+function formatarTempo(segundos) {
+ const h=Math.floor(segundos/3600);
+ const m=Math.floor((segundos%3600)/60);
+ const s=segundos%60;
+ return [h,m,s].map(n=>String(n).padStart(2,"0")).join(":");
+}
+function atualizarRelogio() {
+ document.getElementById("relogio").textContent=formatarTempo(relogioSegundos);
+}
+function iniciarRelogio() {
+ if(relogioIntervalo!==null)return;
+ relogioIntervalo=setInterval(function(){
+  relogioSegundos++;
+  atualizarRelogio();
+ },1000);
+}
+function pausarRelogio() {
+ if(relogioIntervalo!==null)clearInterval(relogioIntervalo);
+ relogioIntervalo=null;
+}
+function finalizarRelogio() {
+ pausarRelogio();
+ if(relogioSegundos<1){alert("Estude por algum tempo antes de salvar.");return;}
+ const d=dadosLer();
+ d.sessoes.push({
+  materia:document.getElementById("estMateria").value,
+  segundos:relogioSegundos,
+  data:new Date().toISOString()
+ });
+ dadosSalvar(d);
+ alert("Sessão de estudos salva!");
+ relogioSegundos=0;
+ atualizarRelogio();
+}
+function zerarRelogio() {
+ pausarRelogio();
+ relogioSegundos=0;
+ atualizarRelogio();
+}
+
+function iniciarSimulado() {
+ encerrarRelogioSimulado();
+ const quantidade=Number(document.getElementById("simQuantidade").value);
+ const minutos=Number(document.getElementById("simTempo").value);
+ const embaralhadas=QUESTOES.slice().sort(()=>Math.random()-0.5);
+ simuladoAtual={
+  questoes:embaralhadas.slice(0,Math.min(quantidade,QUESTOES.length)),
+  respostas:{},
+  inicio:Date.now()
+ };
+ simuladoRestante=minutos*60;
+ desenharSimulado();
+ simuladoIntervalo=setInterval(function(){
+  simuladoRestante--;
+  const contador=document.getElementById("simTempoRestante");
+  if(contador)contador.textContent=formatarTempo(simuladoRestante);
+  if(simuladoRestante<=0){
+   encerrarRelogioSimulado();
+   corrigirSimulado(true);
+  }
+ },1000);
+}
+function encerrarRelogioSimulado() {
+ if(simuladoIntervalo!==null)clearInterval(simuladoIntervalo);
+ simuladoIntervalo=null;
+}
+function desenharSimulado() {
+ const area=document.getElementById("areaSimulado");
+ if(!simuladoAtual)return;
+ let html='<h3>Simulado em andamento</h3><p>Tempo restante: <strong id="simTempoRestante">'+formatarTempo(simuladoRestante)+'</strong></p>';
+ html+='<p class="muted">Questões disponíveis neste banco: '+simuladoAtual.questoes.length+'.</p>';
+ simuladoAtual.questoes.forEach((q,i)=>{
+  html+='<div class="item"><strong>Questão '+(i+1)+'</strong><p>'+escapar(q.pergunta)+'</p>';
+  q.opcoes.forEach((op,j)=>{
+   const marcado=simuladoAtual.respostas[q.id]===j;
+   html+='<label><input style="width:auto" type="radio" name="sim_'+q.id+'" '+(marcado?'checked':'')+' onchange="marcarRespostaSimulado(\''+q.id+'\','+j+')"> '+String.fromCharCode(65+j)+') '+escapar(op)+'</label>';
+  });
+  html+='</div>';
+ });
+ html+='<button class="botao botao-principal" onclick="corrigirSimulado(false)">Finalizar e corrigir</button>';
+ area.innerHTML=html;
+}
+function marcarRespostaSimulado(id,indice) {
+ if(simuladoAtual)simuladoAtual.respostas[id]=indice;
+}
+function corrigirSimulado(tempoEsgotado) {
+ if(!simuladoAtual)return;
+ encerrarRelogioSimulado();
+ const qs=simuladoAtual.questoes;
+ let acertos=0;
+ const revisao=[];
+ qs.forEach(q=>{
+  const resposta=simuladoAtual.respostas[q.id];
+  const correta=resposta===q.correta;
+  if(correta)acertos++;
+  revisao.push({
+   pergunta:q.pergunta,
+   materia:q.materia,
+   resposta:typeof resposta==="number"?q.opcoes[resposta]:"Não respondida",
+   gabarito:q.opcoes[q.correta],
+   correta:correta,
+   comentario:q.comentario
+  });
+ });
+ const percentual=qs.length?Math.round(acertos/qs.length*100):0;
+ const d=dadosLer();
+ d.simulados.push({
+  data:new Date().toISOString(),
+  total:qs.length,
+  acertos:acertos,
+  percentual:percentual
+ });
+ dadosSalvar(d);
+ let html='<h3>Resultado do simulado</h3>';
+ if(tempoEsgotado)html+='<p>O tempo terminou.</p>';
+ html+='<p><strong>'+acertos+' de '+qs.length+' acertos ('+percentual+'%)</strong></p>';
+ html+='<div class="barra"><div style="width:'+percentual+'%"></div></div>';
+ html+='<h3>Correção comentada</h3>';
+ revisao.forEach((r,i)=>{
+  html+='<div class="item"><strong>Questão '+(i+1)+' — '+(r.correta?'Acertou':'Errou ou deixou em branco')+'</strong><p>'+escapar(r.pergunta)+'</p><p>Sua resposta: '+escapar(r.resposta)+'</p><p>Gabarito: '+escapar(r.gabarito)+'</p><p>'+escapar(r.comentario)+'</p></div>';
+ });
+ html+='<button class="botao botao-principal" onclick="iniciarSimulado()">Novo simulado</button>';
+ document.getElementById("areaSimulado").innerHTML=html;
+ simuladoAtual=null;
+}
+
+function atualizarPainel() {
+ const d=dadosLer();
+ const respostas=Object.keys(d.respostas);
+ let acertos=0;
+ respostas.forEach(id=>{
+  const q=QUESTOES.find(x=>x.id===id);
+  if(q&&d.respostas[id]===q.correta)acertos++;
+ });
+ const segundos=d.sessoes.reduce((s,x)=>s+(Number(x.segundos)||0),0);
+ const minutos=Math.floor(segundos/60);
+ document.getElementById("painelRespondidas").textContent=respostas.length;
+ document.getElementById("painelAcertos").textContent=acertos;
+ document.getElementById("painelTempo").textContent=minutos+" min";
+ const percentual=respostas.length?Math.round(acertos/respostas.length*100):0;
+ document.getElementById("barraGeral").style.width=percentual+"%";
+ document.getElementById("textoProgresso").textContent=
+  respostas.length?percentual+"% de acerto nas questões respondidas.":"Responda às questões para acompanhar seu progresso.";
+}
+function renderDesempenho() {
+ const d=dadosLer();
+ let html='<h3>Desempenho por matéria</h3>';
+ MATERIAS.forEach(m=>{
+  const qs=QUESTOES.filter(q=>q.materia===m);
+  const respondidas=qs.filter(q=>Object.prototype.hasOwnProperty.call(d.respostas,q.id));
+  const acertos=respondidas.filter(q=>d.respostas[q.id]===q.correta).length;
+  const pct=respondidas.length?Math.round(acertos/respondidas.length*100):0;
+  html+='<div class="item"><strong>'+escapar(m)+'</strong><p>'+acertos+' acertos de '+respondidas.length+' respondidas</p><div class="barra"><div style="width:'+pct+'%"></div></div></div>';
+ });
+ const totalSegundos=d.sessoes.reduce((s,x)=>s+(Number(x.segundos)||0),0);
+ html+='<div class="item"><strong>Tempo total estudado</strong><p>'+Math.floor(totalSegundos/3600)+' h '+Math.floor((totalSegundos%3600)/60)+' min</p></div>';
+ html+='<h3>Histórico de simulados</h3>';
+ if(!d.simulados.length)html+='<p>Nenhum simulado concluído ainda.</p>';
+ d.simulados.slice().reverse().forEach(s=>{
+  html+='<div class="item">'+new Date(s.data).toLocaleString("pt-BR")+' — '+s.acertos+'/'+s.total+' acertos ('+s.percentual+'%)</div>';
+ });
+ document.getElementById("relatorioDesempenho").innerHTML=html;
+}
+function adicionarMaterial() {
+ const titulo=document.getElementById("materialTitulo").value.trim();
+ const url=document.getElementById("materialUrl").value.trim();
+ const materia=document.getElementById("materialMateria").value;
+ if(!titulo||!url){alert("Informe o nome e o link do material.");return;}
+ try {
+  const u=new URL(url);
+  if(u.protocol!=="https:"&&u.protocol!=="http:")throw Error();
+ } catch(e) {
+  alert("Digite um link válido começando com https:// ou http://");
+  return;
+ }
+ const d=dadosLer();
+ d.materiais.push({id:Date.now(),titulo,url,materia});
+ dadosSalvar(d);
+ document.getElementById("materialTitulo").value="";
+ document.getElementById("materialUrl").value="";
+ renderMateriais();
+}
+function renderMateriais() {
+ const area=document.getElementById("listaMateriais");
+ const d=dadosLer();
+ if(!d.materiais.length){area.innerHTML="<p>Nenhum material cadastrado.</p>";return;}
+ area.innerHTML=d.materiais.map(m=>
+  '<div class="item"><strong>'+escapar(m.titulo)+'</strong><p>'+escapar(m.materia)+'</p><a style="color:#c0ce83" href="'+escapar(m.url)+'" target="_blank" rel="noopener noreferrer">Abrir material</a><br><button class="botao" onclick="apagarMaterial('+m.id+')">Excluir</button></div>'
+ ).join("");
+}
+function apagarMaterial(id) {
+ const d=dadosLer();
+ d.materiais=d.materiais.filter(m=>m.id!==id);
+ dadosSalvar(d);renderMateriais();
+}
+function exportarDados() {
+ const d=dadosLer();
+ const arquivo=new Blob([JSON.stringify(d,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(arquivo);
+ const a=document.createElement("a");
+ a.href=url;
+ a.download="backup-batalha-dos-brabos.json";
+ a.click();
+ URL.revokeObjectURL(url);
+}
+function importarDados(evento) {
+ const arquivo=evento.target.files[0];
+ if(!arquivo)return;
+ const leitor=new FileReader();
+ leitor.onload=function() {
+  try {
+   const d=JSON.parse(leitor.result);
+   if(!d||typeof d!=="object")throw Error();
+   const atual=dadosLer();
+   const novo={
+    respostas:d.respostas||{},
+    erros:Array.isArray(d.erros)?d.erros:[],
+    sessoes:Array.isArray(d.sessoes)?d.sessoes:[],
+    cronograma:Array.isArray(d.cronograma)?d.cronograma:[],
+    materiais:Array.isArray(d.materiais)?d.materiais:[],
+    simulados:Array.isArray(d.simulados)?d.simulados:[]
+   };
+   if(!confirm("Restaurar a cópia? Os dados atuais serão substituídos."))return;
+   localStorage.setItem(CHAVE_DADOS,JSON.stringify(novo));
+   alert("Cópia restaurada.");
+   atualizarPainel();
+   renderDesempenho();
+  } catch(e) {
+   alert("Arquivo inválido. Selecione um backup JSON exportado pelo site.");
+  }
+ };
+ leitor.readAsText(arquivo);
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+ document.getElementById("crData").value=new Date().toISOString().slice(0,10);
+ atualizarRelogio();
+ atualizarPainel();
+ renderMaterias();
+ renderCronograma();
+ renderErros();
+ renderMateriais();
+ renderQuestoes();
+});
+</script>
+
+</body>
+</html>
